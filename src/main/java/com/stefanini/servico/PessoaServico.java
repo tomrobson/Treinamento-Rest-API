@@ -119,11 +119,10 @@ public class PessoaServico implements Serializable {
 	/**
 	 * Buscar uma Pessoa pelo ID
 	 */
-//	@Override
 	public Optional<Pessoa> encontrar(Long id) {
 		Optional<Pessoa> pessoa = dao.encontrar(id);
 		
-		if (!pessoa.get().getImagem().isEmpty()) {
+		if (pessoa.get().getImagem() != null) {
 			String urlPath = "http://localhost:8080/treinamento/api/pessoas/imagem/imagem0.";
 			String local = pessoa.get().getImagem();
 			
