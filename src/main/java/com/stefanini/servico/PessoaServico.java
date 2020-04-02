@@ -94,6 +94,20 @@ public class PessoaServico implements Serializable {
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Pessoa atualizar(@Valid Pessoa entity) {
+		if (entity.getImagem() != null) {
+			String[] imagem = entity.getImagem().split(Pattern.quote(":"));
+			
+			if (imagem[0].equals("data")) {
+				String[] img = entity.getImagem().split(Pattern.quote(","));
+				
+				entity.setImagem(decodeBase64(entity.getImagem()));
+				
+				if (!img[2].isEmpty()) {					
+					deletarImagem(img[2]);
+				}
+			}
+		}
+		
 		return dao.atualizar(entity);
 	}
 
@@ -148,7 +162,7 @@ public class PessoaServico implements Serializable {
 	}
 	
 	public String decodeBase64 (String imagem) {
-		imagem = imagem.split(",")[1];
+		imagem = imagem.split(Pattern.quote(","))[1];
 		
 		String url = "C:\\Users\\tomro\\eclipse-workspace\\Treinamento-Rest-API\\src\\image";
 		String random = "\\imagem" + Math.random() + ".jpg";
@@ -167,6 +181,16 @@ public class PessoaServico implements Serializable {
 			e.printStackTrace();
 		}
 		return url + random;
+	}
+	
+	public void deletarImagem (String imagem) {
+		String[] img = imagem.split(Pattern.quote("."));
+		
+		String url = "C:\\Users\\tomro\\eclipse-workspace\\Treinamento-Rest-API\\src\\image";
+		String random = "\\imagem0." + img[1] + ".jpg";
+		
+		File file = new File(url + random);
+		file.delete();
 	}
 
 }
