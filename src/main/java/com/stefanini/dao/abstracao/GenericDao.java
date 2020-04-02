@@ -4,9 +4,11 @@ package com.stefanini.dao.abstracao;
 import com.stefanini.dao.interfaces.IGenericDao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
@@ -42,6 +44,7 @@ public abstract class GenericDao<T, I extends Serializable> implements IGenericD
 	 * Sempre que for executar uma DML é necessario abrir uma transacao e fecha-la, pois senão a operacao não será comitada
 	 */
 	public T salvar(@Valid T entity) {
+//		entityManager.setFlushMode(FlushModeType.COMMIT);
 		entityManager.persist(entity);
 		return entity;
 	}

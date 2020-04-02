@@ -7,6 +7,7 @@ import com.stefanini.model.Pessoa;
 import com.stefanini.servico.PessoaServico;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -105,6 +106,13 @@ public class PessoaResource {
 	@Path("{id}")
 	public Response obterPessoa(@PathParam("id") Long id) {
 		return pessoaServico.encontrar(id).map(pessoas -> Response.ok(pessoas).build()).orElseGet(() -> Response.status(Status.NOT_FOUND).build());
+	}
+	
+	@GET
+	@Path("imagem/{localImagem}")
+	@Produces("image/jpg")
+	public Response obterImagem(@PathParam("localImagem") String localImagem) {
+		return Response.ok(pessoaServico.urlImagem(localImagem)).build();
 	}
 
 }

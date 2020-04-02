@@ -5,8 +5,15 @@ import com.stefanini.model.Endereco;
 
 import javax.ejb.*;
 import javax.inject.Inject;
+import javax.management.RuntimeErrorException;
 import javax.validation.Valid;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +32,7 @@ public class EnderecoServico implements Serializable {
 	private EnderecoDao dao;
 
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 
 	public Endereco salvar(@Valid Endereco entity) {
 		return dao.salvar(entity);
@@ -50,5 +57,26 @@ public class EnderecoServico implements Serializable {
 
 	public Optional<Endereco> encontrar(Long id) {
 		return dao.encontrar(id);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public static String buscarCEP(String cep) {
+		String endereco;
+		
+		try {
+			URL url = new URL("http://viacep.com.br/ws/" + cep + "/json");
+			URLConnection urlConnection = url.openConnection();
+			InputStream is = urlConnection.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			
+			StringBuilder json = new StringBuilder();
+			br.lines().forEach(l -> json.append(l.trim()));
+			endereco = json.toString();
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
+		return endereco;
 	}
 }

@@ -94,5 +94,11 @@ public class EnderecoResource {
     public Response obterEndereco(@PathParam("id") Long id) {
         return enderecoServico.encontrar(id).map(endereco -> Response.ok(endereco).build()).orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());
     }
+    
+    @GET
+    @Path("buscarCEP/{cep}")
+    public Response buscarCEP(@PathParam("cep") String cep) {
+    	return Response.ok(enderecoServico.buscarCEP(cep)).build();
+    }
 
 }
