@@ -28,11 +28,6 @@ public class PessoaPerfil implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-    public PessoaPerfil(Perfil perfil, Pessoa pessoa) {
-        this.perfil = perfil;
-        this.pessoa = pessoa;
-    }
-
     public Long getIdPerfil() {
         return idPerfil;
     }

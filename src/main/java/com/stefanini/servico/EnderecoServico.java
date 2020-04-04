@@ -47,7 +47,7 @@ public class EnderecoServico implements Serializable {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 
 	public void remover(Long id) {
-	dao.remover(id);
+		dao.remover(id);
 	}
 
 
