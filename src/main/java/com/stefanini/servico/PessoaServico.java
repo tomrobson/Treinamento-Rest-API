@@ -58,7 +58,7 @@ public class PessoaServico implements Serializable {
 	public Pessoa salvar(@Valid Pessoa pessoa) {
 		Optional<Endereco> endereco = pessoa.getEnderecos().stream().findFirst();
 		
-		if (!pessoa.getImagem().isEmpty()) {			
+		if (pessoa.getImagem() != null) {
 			pessoa.setImagem(decodeBase64(pessoa.getImagem()));
 		}
 		
@@ -102,7 +102,7 @@ public class PessoaServico implements Serializable {
 				
 				entity.setImagem(decodeBase64(entity.getImagem()));
 				
-				if (!img[2].isEmpty()) {					
+				if (img.length > 2) {				
 					deletarImagem(img[2]);
 				}
 			}
