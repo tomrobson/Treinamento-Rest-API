@@ -3,11 +3,13 @@ package com.stefanini.model.teste;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.stefanini.model.Endereco;
@@ -25,21 +27,28 @@ public class PessoaTest {
 	@Tested
 	Pessoa pessoa;
 	
-	@Test
-	public void TestPessoa() {
-		Long id = 1L;
-		String nome = "Joao";
-		String email = "joao@gmail.com";
-		LocalDate dataNascimento = null;
+	private Long id;
+	private String nome;
+	private String email;
+	private LocalDate dataNascimento = null;
+	private Boolean situacao;
+	private String imagem;
+	private Set<Endereco> enderecos = new HashSet<>();
+	private Set<Perfil> perfils = new HashSet<>();
+	private String stringTo;
+	
+	@Before
+	public void setUp() {
+		id = 1L;
+		nome = "Joao";
+		email = "joao@gmail.com";
 		dataNascimento = dataNascimento.parse("1995-08-25");
-		Boolean situacao = true;
-		String imagem = "C:/usuario/img";
-		Set<Endereco> enderecos = null;
-		Set<Perfil> perfils = null;
-		String stringTo =
-				"Pessoa [id=" + id + ", nome=" + nome + ", email=" + email + ", dataNascimento=" + dataNascimento
-				+ ", situacao=" + situacao + ", imagem=" + imagem + ", enderecos=" + enderecos + ", perfils=" + perfils
-				+ "]";
+		situacao = true;
+		imagem = "C:/usuario/img";
+		stringTo =
+			"Pessoa [id=" + id + ", nome=" + nome + ", email=" + email + ", dataNascimento=" + dataNascimento
+			+ ", situacao=" + situacao + ", imagem=" + imagem + ", enderecos=" + enderecos + ", perfils=" + perfils
+			+ "]";
 		
 		pessoa = new Pessoa();
 		
@@ -51,7 +60,10 @@ public class PessoaTest {
 		pessoa.setImagem(imagem);
 		pessoa.setEnderecos(enderecos);
 		pessoa.setPerfils(perfils);
-		
+	}
+	
+	@Test
+	public void TestPessoa() {
 		Assert.assertEquals(pessoa.getId(), id);
 		Assert.assertEquals(pessoa.getNome(), nome);
 		Assert.assertEquals(pessoa.getEmail(), email);
@@ -65,11 +77,6 @@ public class PessoaTest {
 	
 	@Test
 	public void TestPessoa1() {
-		String nome = "Joao";
-		String email = "joao@gmail.com";
-		LocalDate dataNascimento = null;
-		dataNascimento = dataNascimento.parse("1995-08-25");
-		Boolean situacao = true;
 		pessoa = new Pessoa(nome, email, dataNascimento, situacao);
 		
 		Assert.assertEquals(pessoa.getNome(), nome);
@@ -80,26 +87,6 @@ public class PessoaTest {
 	
 	@Test
 	public void TestPessoaHashCode() {
-		Long id = 1L;
-		String nome = "Joao";
-		String email = "joao@gmail.com";
-		LocalDate dataNascimento = null;
-		dataNascimento = dataNascimento.parse("1995-08-25");
-		Boolean situacao = true;
-		String imagem = "C:/usuario/img";
-		Set<Endereco> enderecos = null;
-		Set<Perfil> perfils = null;
-		pessoa = new Pessoa();
-		
-		pessoa.setId(id);
-		pessoa.setNome(nome);
-		pessoa.setEmail(email);
-		pessoa.setDataNascimento(dataNascimento);
-		pessoa.setSituacao(situacao);
-		pessoa.setImagem(imagem);
-		pessoa.setEnderecos(enderecos);
-		pessoa.setPerfils(perfils);
-		
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dataNascimento == null) ? 0 : dataNascimento.hashCode());

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import javax.persistence.EntityManager;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.stefanini.model.Endereco;
@@ -19,17 +20,39 @@ public class EnderecoTest {
 	
 	@Tested
 	Endereco endereco;
-
-	@Test
-	public void TestEndereco() {
-		Long id = 1L;
-		String cep = "12345678";
-		String uf = "DF";
-		String localidade = "Brasilia";
-		String bairro = "Riacho Fundo II";
-		String complemento = "Rua";
-		String logradouro = "QN 25";
-		Long idPessoa = 1L;
+	
+	private Long id;
+	private String cep;
+	private String uf;
+	private String localidade;
+	private String bairro;
+	private String complemento;
+	private String logradouro;
+	private Long idPessoa;
+	private String stringTo;
+	
+	@Before
+	public void setUp() {
+		id = 1L;
+		cep = "12345678";
+		uf = "DF";
+		localidade = "Brasilia";
+		bairro = "Riacho Fundo II";
+		complemento = "Rua";
+		logradouro = "QN 25";
+		idPessoa = 1L;
+		stringTo =
+			"Endereco{" +
+            "id=" + id +
+            ", cep='" + cep + '\'' +
+            ", uf='" + uf + '\'' +
+            ", localidade='" + localidade + '\'' +
+            ", bairro='" + bairro + '\'' +
+            ", complemento='" + complemento + '\'' +
+            ", logradouro='" + logradouro + '\'' +
+            ", idPessoa=" + idPessoa +
+            '}';
+		
 		endereco = new Endereco();
 		
 		endereco.setId(id);
@@ -40,7 +63,10 @@ public class EnderecoTest {
 		endereco.setComplemento(complemento);
 		endereco.setLogradouro(logradouro);
 		endereco.setIdPessoa(idPessoa);
-		
+	}
+
+	@Test
+	public void TestEndereco() {
 		Assert.assertEquals(endereco.getId(), id);
 		Assert.assertEquals(endereco.getCep(), cep);
 		Assert.assertEquals(endereco.getUf(), uf);
@@ -53,26 +79,6 @@ public class EnderecoTest {
 	
 	@Test
 	public void TestEndereco1() {
-		Long id = 1L;
-		String cep = "12345678";
-		String uf = "DF";
-		String localidade = "Brasilia";
-		String bairro = "Riacho Fundo II";
-		String complemento = "Rua";
-		String logradouro = "QN 25";
-		Long idPessoa = 1L;
-		String stringTo =
-				"Endereco{" +
-                "id=" + id +
-                ", cep='" + cep + '\'' +
-                ", uf='" + uf + '\'' +
-                ", localidade='" + localidade + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", logradouro='" + logradouro + '\'' +
-                ", idPessoa=" + idPessoa +
-                '}';
-		
 		endereco = new Endereco(id, cep, uf, localidade, bairro, complemento, logradouro, idPessoa);
 		
 		Assert.assertEquals(endereco.getId(), id);

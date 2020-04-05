@@ -70,7 +70,6 @@ public class PerfilServico implements Serializable {
 	public void remover(@Valid Long id) throws NegocioException {
 		if(pessoaPerfilServico.buscarPessoaPerfil(null,id).count() == 0){
 			dao.remover(id);
-			return;
 		}
 		throw new NegocioException("Não foi possivel remover o perfil");
 	}

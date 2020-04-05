@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import javax.persistence.EntityManager;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.stefanini.model.Perfil;
@@ -22,24 +23,29 @@ public class PerfilTest {
 	@Tested
 	Perfil perfil;
 	
-	@Test
-	public void TestPerfil() {
-		Long id = 1L;
-		String nome = "ADMIN";
-		String descricao = "DESCRICAO DE ADMIN";
-		LocalDateTime dataHoraInclusao = null;
+	private Long id;
+	private String nome;
+	private String descricao;
+	private LocalDateTime dataHoraInclusao = null;
+	private LocalDateTime dataHoraAlteracao = null;
+	private String stringTo;
+	
+	@Before
+	public void setUp() {
+		id = 1L;
+		nome = "ADMIN";
+		descricao = "DESCRICAO DE ADMIN";
 		dataHoraInclusao = dataHoraInclusao.now();
-		LocalDateTime dataHoraAlteracao = null;
 		dataHoraAlteracao = dataHoraAlteracao.now();
-		String stringTo =
-				"Perfil{" +
-		                "id=" + id +
-		                ", nome='" + nome + '\'' +
-		                ", descricao='" + descricao + '\'' +
-		                ", dataHoraInclusao=" + dataHoraInclusao +
-		                ", dataHoraAlteracao=" + dataHoraAlteracao +
+		stringTo =
+			"Perfil{" +
+	                "id=" + id +
+	                ", nome='" + nome + '\'' +
+	                ", descricao='" + descricao + '\'' +
+	                ", dataHoraInclusao=" + dataHoraInclusao +
+	                ", dataHoraAlteracao=" + dataHoraAlteracao +
 // 		                ", pessoas=" + pessoas +
-		                '}';
+	                '}';
 		
 		perfil = new Perfil();
 		
@@ -48,7 +54,10 @@ public class PerfilTest {
 		perfil.setDescricao(descricao);
 		perfil.setDataHoraInclusao(dataHoraInclusao);
 		perfil.setDataHoraAlteracao(dataHoraAlteracao);
-		
+	}
+	
+	@Test
+	public void TestPerfil() {
 		Assert.assertEquals(perfil.getId(), id);
 		Assert.assertEquals(perfil.getNome(), nome);
 		Assert.assertEquals(perfil.getDescricao(), descricao);
@@ -59,14 +68,6 @@ public class PerfilTest {
 	
 	@Test
 	public void TestPerfil1() {
-		Long id = 1L;
-		String nome = "ADMIN";
-		String descricao = "DESCRICAO DE ADMIN";
-		LocalDateTime dataHoraInclusao = null;
-		dataHoraInclusao = dataHoraInclusao.now();
-		LocalDateTime dataHoraAlteracao = null;
-		dataHoraAlteracao = dataHoraAlteracao.now();
-		
 		perfil = new Perfil(nome, descricao, dataHoraInclusao, dataHoraAlteracao);
 		
 		Assert.assertEquals(perfil.getNome(), nome);
