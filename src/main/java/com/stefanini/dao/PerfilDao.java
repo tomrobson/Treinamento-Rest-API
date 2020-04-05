@@ -27,7 +27,7 @@ public class PerfilDao extends GenericDao<Perfil, Long> {
 		TypedQuery<Perfil> q2 =
 				entityManager.createQuery(" select p from Perfil p where p.nome=:nome", Perfil.class);
 		q2.setParameter("nome", nome);
-		return q2.getResultStream().findFirst();
+		return q2.getResultList().stream().findFirst();
 	}
 
 }

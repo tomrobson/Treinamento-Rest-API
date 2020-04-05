@@ -38,7 +38,7 @@ public class PessoaPerfilDao extends GenericDao<PessoaPerfil, Long> {
 		if(idPessoa != null){
 			q2.setParameter("idPessoa", idPessoa);
 		}
-		return q2.getResultStream();
+		return q2.getResultList().stream();
 	}
 
 }
